@@ -6,6 +6,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "WOD Log",
   description: "Website to log your WODs",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
