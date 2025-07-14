@@ -1,0 +1,238 @@
+[
+  {
+    "name": "Deadlift",
+    "youtubeId": "1ZXobu7JvvE",
+    "type": "Foundational"
+  },
+  {
+    "name": "Air Squat",
+    "youtubeId": "rMvwVtlqjTE",
+    "type": "Foundational"
+  },
+  {
+    "name": "Shoulder Press",
+    "youtubeId": "5yWaNOvgFCM",
+    "type": "Foundational"
+  },
+  {
+    "name": "Front Squat",
+    "youtubeId": "uYumuL_G_V0",
+    "type": "Foundational"
+  },
+  {
+    "name": "Push Up",
+    "youtubeId": "0pkjOk0EiAk",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Handstand Push Up",
+    "youtubeId": "0wDEO6shVjc",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Push Press",
+    "youtubeId": "X6-DMh-t4nQ",
+    "type": "Foundational"
+  },
+  {
+    "name": "Rowing",
+    "youtubeId": "fxfhQMbATCw",
+    "type": "Other"
+  },
+  {
+    "name": "Thruster",
+    "youtubeId": "L219ltL15zk",
+    "type": "Other"
+  },
+  {
+    "name": "Back Squat",
+    "youtubeId": "QmZAiBqPvZw",
+    "type": "Foundational"
+  },
+  {
+    "name": "Ring Dip",
+    "youtubeId": "EznLCDBAPIU",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Ring Muscle Up",
+    "youtubeId": "vJTJFc2wmk4",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Walking Lunge",
+    "youtubeId": "DlhojghkaQ0",
+    "type": "Other"
+  },
+  {
+    "name": "Clean",
+    "youtubeId": "Ty14ogq_Vok",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Slam Ball",
+    "youtubeId": "k9W6g9LvXDI",
+    "type": "Other"
+  },
+  {
+    "name": "Ring Row",
+    "youtubeId": "sEAOZc77wk8",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Snatch",
+    "youtubeId": "GhxhiehJcQY",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Power Snatch",
+    "youtubeId": "TL8SMp7RdXQ",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Overhead Squat",
+    "youtubeId": "pn8mqlG0nkE",
+    "type": "Foundational"
+  },
+  {
+    "name": "Burpee",
+    "youtubeId": "auBLPXO8Fww",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Box Jump",
+    "youtubeId": "NBY9-kTuHEk",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Hang Power Clean",
+    "youtubeId": "0aP3tgKZcHQ",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Dumbbell Hang Clean",
+    "youtubeId": "8r44xv_Aqbw",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Dumbbell Thruster",
+    "youtubeId": "u3wKkZjE8QM",
+    "type": "Other"
+  },
+  {
+    "name": "Hang Power Snatch",
+    "youtubeId": "-mLzQdVAwlw",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Wall Walk",
+    "youtubeId": "NK_OcHEm8yM",
+    "type": "Other"
+  },
+  {
+    "name": "Split Jerk",
+    "youtubeId": "GUDkOtraHHY",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Kettlebell Swing",
+    "youtubeId": "mKDIuUbH94Q",
+    "type": "Other"
+  },
+  {
+    "name": "Split Snatch",
+    "youtubeId": "VFdCGK8yk-8",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Push Jerk",
+    "youtubeId": "V-hKuAfWNUw",
+    "type": "Foundational"
+  },
+  {
+    "name": "Toes to Bar",
+    "youtubeId": "xX9Hzi7Onnw",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Box Set-up",
+    "youtubeId": "5qjqDHOUh-A",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Split Clean",
+    "youtubeId": "a5CR3Bi2Gc8",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Bar Muscle Up",
+    "youtubeId": "o69WaY_7k2c",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Burpee Box Jump Over",
+    "youtubeId": "GLktGkmcvWE",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Clean and Jerk",
+    "youtubeId": "PjY1rH4_MOA",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Dumbbell Clean",
+    "youtubeId": "SYxObzJ3gn0",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Power Clean",
+    "youtubeId": "KwYJTpQ_x5A",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Hand Clean and Push Jerk",
+    "youtubeId": "8IYt7AtP8BI",
+    "type": "Olympic Lifting"
+  },
+  {
+    "name": "Chest to Bar",
+    "youtubeId": "xf69XHAs5w8",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Toes to Ring",
+    "youtubeId": "1zp-B1Vb_Vs",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Double Under",
+    "youtubeId": "82jNjDS19lg",
+    "type": "Other"
+  },
+  {
+    "name": "Single Under",
+    "youtubeId": "hCuXYrTOMxI",
+    "type": "Other"
+  },
+  {
+    "name": "Rope Climb",
+    "youtubeId": "Pa4QUC9AvuA",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Pull Up",
+    "youtubeId": "aAggnpPyR6E",
+    "type": "Gymnastics"
+  },
+  {
+    "name": "Handstand Walk",
+    "youtubeId": "FdgJ9jZIT-Q",
+    "type": "Gymnastics"
+  }
+  ,
+  {
+    "name": "Wall Ball",
+    "youtubeId": "fpUD0mcFp_0",
+    "type": "Other"
+  }
+]
