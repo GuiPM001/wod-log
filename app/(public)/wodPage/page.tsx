@@ -5,7 +5,7 @@ import Button from "@/components/ui/button";
 import IconButton from "@/components/ui/iconButton";
 import PageTitle from "@/components/pageTitle";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { HiOutlinePlus, HiOutlineTrash } from "react-icons/hi";
 import { useWod } from "@/app/context/WodContext";
 import { useMonthlyWods } from "@/app/context/MonthlyWodsContext";
@@ -15,10 +15,6 @@ import { api } from "@/core/services/api";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 
 export default function WodPage() {
-  const searchParams = useSearchParams();
-
-  const wodDate = searchParams.get("wodDate");
-
   const { wod, setWod, setInitialState, removeTrainingBlock } = useWod();
   const { addWod } = useMonthlyWods();
 
@@ -34,7 +30,7 @@ export default function WodPage() {
 
       await api.post("/wod", wod);
       addWod(wod);
-      
+
       router.replace("/");
       setInitialState();
       setLoading(false);
@@ -45,8 +41,11 @@ export default function WodPage() {
   };
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const wodDate = params.get("wodDate");
+
     if (wodDate) setWod({ ...wod!, date: wodDate });
-  }, [wodDate]);
+  }, []);
 
   return (
     <div className="h-screen mx-4 my-6">

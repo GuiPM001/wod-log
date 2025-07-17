@@ -57,6 +57,8 @@ export default function FormTrainingBlock() {
     const { name, value } = e.target;
     const numericValue = Number(value);
     const currentMovement = form.movements[index];
+    
+    if (isNaN(numericValue)) return form.movements;
 
     if (name === "reps") {
       return form.movements.map((m, i) =>
@@ -72,9 +74,12 @@ export default function FormTrainingBlock() {
   const formChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
   ) => {
+    const value = Number(e.target.value);
+    if (isNaN(value)) return;
+
     setForm({
       ...form,
-      [e.target.name]: Number(e.target.value),
+      [e.target.name]: value,
     });
   };
 
