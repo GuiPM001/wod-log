@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { WodProvider } from "./context/WodContext";
 import Header from "@/components/header";
 import "./globals.css";
+import { MonthlyWodsProvider } from "./context/MonthlyWodsContext";
 
 export const metadata: Metadata = {
   title: "WOD Log",
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-nunito">
         <Header />
-        <WodProvider>{children}</WodProvider>
+        <MonthlyWodsProvider>
+          <WodProvider>{children}</WodProvider>
+        </MonthlyWodsProvider>
       </body>
     </html>
   );

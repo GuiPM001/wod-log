@@ -1,15 +1,15 @@
 "use client";
 
+import MovementItem from "@/components/movementItem";
+import IconButton from "@/components/ui/iconButton";
+import { TrainingBlockMovement } from "@/core/types/TrainingBlockMovement";
 import React, { ChangeEvent, useState } from "react";
-import { TrainingBlockMovement } from "@/core/types/TrainingBlock";
 import {
   HiDotsVertical,
   HiDuplicate,
   HiOutlineTrash,
   HiX,
 } from "react-icons/hi";
-import MovementItem from "./movementItem";
-import IconButton from "./ui/iconButton";
 
 interface MovementFormProps {
   index: number;

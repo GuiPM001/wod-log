@@ -1,15 +1,16 @@
-import Calendar from "@/components/calendar";
-import MovementList from "@/components/movementList";
-import Button from "@/components/ui/button";
 import Link from "next/link";
+import Button from "@/components/ui/button";
+import Calendar from "@/app/(public)/(home)/components/calendar";
+import History from "@/app/(public)/(home)/components/history";
 
 export default function Home() {
   return (
-    <div className="h-screen mx-4 my-6 flex flex-col gap-6">
+    <div className="mx-4 my-6 flex flex-col">
       <Link href="/wodPage">
         <Button>Add WOD</Button>
       </Link>
       <Calendar />
+      <History />
     </div>
   );
 }

@@ -1,14 +1,9 @@
-import { Movement } from "./Movement";
+import { TrainingBlockType } from "../enums/TrainingBlockType";
+import { TrainingBlockMovement } from "./TrainingBlockMovement";
 
 export type TrainingBlock = {
-  type: string;
+  type: TrainingBlockType;
   time: number;
   rounds: number;
   movements: TrainingBlockMovement[];
 };
-
-export type TrainingBlockMovement = Movement & {
-  previous: string;
-  kg: number;
-  reps: number;
-} 

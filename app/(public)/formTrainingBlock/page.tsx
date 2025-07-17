@@ -1,24 +1,27 @@
 "use client";
+
 import React, { ChangeEvent, useState } from "react";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import Select from "@/components/ui/select";
-import MovementList from "@/components/movementList";
 import InputTime from "@/components/ui/inputTime";
-import MovementForm from "@/components/movementForm";
 import PageTitle from "@/components/pageTitle";
+import MovementList from "./components/movementList";
+import MovementForm from "./components/movementForm";
 import { HiOutlinePlus } from "react-icons/hi";
 import { Movement } from "@/core/types/Movement";
-import {
-  TrainingBlock,
-  TrainingBlockMovement,
-} from "@/core/types/TrainingBlock";
 import { useRouter } from "next/navigation";
 import { useWod } from "@/app/context/WodContext";
+import { TrainingBlock } from "@/core/types/TrainingBlock";
+import { TrainingBlockMovement } from "@/core/types/TrainingBlockMovement";
+import {
+  trainingBlockLabels,
+  TrainingBlockType,
+} from "@/core/enums/TrainingBlockType";
 
 export default function FormTrainingBlock() {
   const initialState = {
-    type: "AMRAP",
+    type: TrainingBlockType.AMRAP,
     time: 0,
     rounds: 0,
     movements: [],
@@ -34,7 +37,7 @@ export default function FormTrainingBlock() {
     const formMovement: TrainingBlockMovement = {
       ...newMovement,
       kg: 0,
-      reps: 0,
+      reps: 1,
       previous: "30kg",
     };
 
@@ -71,7 +74,7 @@ export default function FormTrainingBlock() {
   ) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [e.target.name]: Number(e.target.value),
     });
   };
 
@@ -96,7 +99,7 @@ export default function FormTrainingBlock() {
       ...sameMovement,
       reps: Math.max(1, sameMovement.reps - 1),
     };
-    
+
     setForm({ ...form, movements: [...form.movements, sameMovement] });
   };
 
@@ -114,28 +117,38 @@ export default function FormTrainingBlock() {
             <Button onClick={onSave}>Save</Button>
           </div>
 
-          <div className="flex flex-row gap-4 ">
+          <div className="flex flex-row gap-2">
             <Select
               value={form.type}
               onChange={formChange}
               name="type"
               label="Type"
               options={[
-                { label: "AMRAP", value: "AMRAP" },
-                { label: "EMOM", value: "EMOM" },
-                { label: "RFT", value: "RFT" },
-                { label: "For Time", value: "For Time" },
+                {
+                  label: trainingBlockLabels[TrainingBlockType.AMRAP],
+                  value: TrainingBlockType.AMRAP,
+                },
+                {
+                  label: trainingBlockLabels[TrainingBlockType.EMOM],
+                  value: TrainingBlockType.EMOM,
+                },
+                {
+                  label: trainingBlockLabels[TrainingBlockType.RFT],
+                  value: TrainingBlockType.RFT,
+                },
+                {
+                  label: trainingBlockLabels[TrainingBlockType.ForTime],
+                  value: TrainingBlockType.ForTime,
+                },
+                {
+                  label: trainingBlockLabels[TrainingBlockType.Strength],
+                  value: TrainingBlockType.Strength,
+                },
+                {
+                  label: trainingBlockLabels[TrainingBlockType.Skill],
+                  value: TrainingBlockType.Skill,
+                },
               ]}
-            />
-            <InputTime
-              name="time"
-              type="text"
-              inputMode="numeric"
-              pattern="\d*"
-              label="Time"
-              value={form.time}
-              onChange={formChange}
-              onFocus={(e) => e.target.select()}
             />
             <Input
               name="rounds"
@@ -144,6 +157,17 @@ export default function FormTrainingBlock() {
               pattern="\d*"
               label="Rounds"
               value={form.rounds}
+              onChange={formChange}
+              onFocus={(e) => e.target.select()}
+            />
+
+            <InputTime
+              name="time"
+              type="text"
+              inputMode="numeric"
+              pattern="\d*"
+              label="Time per round"
+              value={form.time}
               onChange={formChange}
               onFocus={(e) => e.target.select()}
             />

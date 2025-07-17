@@ -4,7 +4,7 @@ import Label from "./label";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
-  options: { label: string; value: string }[];
+  options: { label: string; value: number }[];
 }
 
 export default function Select(props: SelectProps) {
@@ -26,7 +26,7 @@ export default function Select(props: SelectProps) {
           ))}
         </select>
 
-        <span className="absolute top-1/2 right-4 -translate-y-1/2">
+        <span className="absolute top-1/2 right-2 -translate-y-1/2">
           <svg
             width={20}
             height={20}

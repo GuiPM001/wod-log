@@ -5,19 +5,28 @@ import { TrainingBlock } from "@/core/types/TrainingBlock";
 import { Wod } from "@/core/types/Wod";
 
 interface WodContextProps {
-  wod: Wod | null;
+  wod: Wod;
+  setWod: (wod: Wod) => void;
+  setInitialState: () => void;
   addTrainingBlock: (trainingBlock: TrainingBlock) => void;
   removeTrainingBlock: (index: number) => void;
 }
 
+const initialState: Wod = {
+  date: new Date().toISOString(),
+  trainingBlocks: [],
+};
+
 const WodContext = createContext<WodContextProps>({
-  wod: null,
+  wod: initialState,
+  setWod: () => {},
+  setInitialState: () => {},
   addTrainingBlock: () => {},
   removeTrainingBlock: () => {},
 });
 
 export const WodProvider = ({ children }: { children: ReactNode }) => {
-  const [wod, setWod] = useState<Wod>({ trainingBlocks: [] });
+  const [wod, setWod] = useState<Wod>(initialState);
 
   const addTrainingBlock = (trainingBlock: TrainingBlock) => {
     setWod({
@@ -31,8 +40,20 @@ export const WodProvider = ({ children }: { children: ReactNode }) => {
     setWod({ ...wod, trainingBlocks: newArray });
   };
 
+  const setInitialState = () => {
+    setWod(initialState);
+  };
+
   return (
-    <WodContext.Provider value={{ wod, addTrainingBlock, removeTrainingBlock }}>
+    <WodContext.Provider
+      value={{
+        wod,
+        setWod,
+        setInitialState,
+        addTrainingBlock,
+        removeTrainingBlock,
+      }}
+    >
       {children}
     </WodContext.Provider>
   );
