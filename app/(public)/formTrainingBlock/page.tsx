@@ -43,13 +43,27 @@ export default function FormTrainingBlock() {
   };
 
   const movementChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-    const updatedMovements = [...form.movements];
-    updatedMovements[index] = {
-      ...updatedMovements[index],
-      [e.target.name]: e.target.value,
-    };
-
+    let updatedMovements = updatedAllSameMoves(e, index);
     setForm({ ...form, movements: updatedMovements });
+  };
+
+  const updatedAllSameMoves = (
+    e: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
+    const numericValue = Number(value);
+    const currentMovement = form.movements[index];
+
+    if (name === "reps") {
+      return form.movements.map((m, i) =>
+        i === index ? { ...m, reps: numericValue } : m
+      );
+    }
+
+    return form.movements.map((m) =>
+      m.youtubeId === currentMovement.youtubeId ? { ...m, kg: numericValue } : m
+    );
   };
 
   const formChange = (
@@ -69,6 +83,21 @@ export default function FormTrainingBlock() {
   const removeMovement = (index: number) => {
     const newArray = form.movements.filter((_, i) => i !== index);
     setForm({ ...form, movements: newArray });
+  };
+
+  const duplicateMovement = (movement: Movement) => {
+    let sameMovement = form.movements
+      .filter((m) => m.youtubeId === movement.youtubeId)
+      .at(-1);
+
+    if (!sameMovement) return;
+
+    sameMovement = {
+      ...sameMovement,
+      reps: Math.max(1, sameMovement.reps - 1),
+    };
+    
+    setForm({ ...form, movements: [...form.movements, sameMovement] });
   };
 
   return (
@@ -123,15 +152,17 @@ export default function FormTrainingBlock() {
           <div>
             {form.movements.map((m, index) => (
               <MovementForm
+                key={`${m.youtubeId}-${index}`}
                 index={index}
                 movement={m}
                 movementChange={movementChange}
                 removeMovement={removeMovement}
+                duplicateMovement={duplicateMovement}
               />
             ))}
           </div>
 
-          <Button onClick={() => setListOpen(true)} >
+          <Button onClick={() => setListOpen(true)}>
             <HiOutlinePlus />
             <span className="ml-1">Add movement</span>
           </Button>

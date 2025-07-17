@@ -14,9 +14,9 @@ export default function Select(props: SelectProps) {
         {props.label}
       </Label>
 
-      <div className="relative z-20">
+      <div className="relative">
         <select
-          className={`z-20 appearance-none ${INPUT_CLASSNAME}`}
+          className={`appearance-none ${INPUT_CLASSNAME}`}
           {...props}
         >
           {props.options.map((o) => (
@@ -26,7 +26,7 @@ export default function Select(props: SelectProps) {
           ))}
         </select>
 
-        <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
+        <span className="absolute top-1/2 right-4 -translate-y-1/2">
           <svg
             width={20}
             height={20}

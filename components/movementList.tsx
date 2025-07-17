@@ -17,7 +17,7 @@ export default function MovementList({
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-center mb-6">
-        <button onClick={closeList} className="text-primary absolute left-3">
+        <button onClick={closeList} className="text-primary absolute left-3 cursor-pointer">
           Cancel
         </button>
         <span>Add Movement</span>
@@ -26,7 +26,7 @@ export default function MovementList({
       {movs.map((m) => (
         <button
           onClick={() => addMovement(m)}
-          className="border-b border-gray-200 py-6"
+          className="border-b border-gray-200 py-6 cursor-pointer"
           key={m.youtubeId}
         >
           <MovementItem movement={m} />
