@@ -4,10 +4,11 @@ const MovementSchema = new Schema(
   {
     name: { type: String, required: true },
     type: { type: String, required: true },
-    youtubeId: { type: String, required: true },
-    kg: { type: Number, required: true },
-    reps: { type: Number, required: true },
-    previous: { type: String, required: true },
+    youtubeId: { type: String, required: false, default: "" },
+    kg: { type: Number, required: false, default: null },
+    reps: { type: Number, required: false, default: null },
+    distance: { type: Number, required: false, default: null },
+    previous: { type: String, required: false, default: null },
   },
   { _id: false }
 );

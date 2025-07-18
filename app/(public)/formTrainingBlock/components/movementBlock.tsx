@@ -4,14 +4,10 @@ import MovementItem from "@/components/movementItem";
 import IconButton from "@/components/ui/iconButton";
 import { TrainingBlockMovement } from "@/core/types/TrainingBlockMovement";
 import React, { ChangeEvent, useState } from "react";
-import {
-  HiDotsVertical,
-  HiDuplicate,
-  HiOutlineTrash,
-  HiX,
-} from "react-icons/hi";
+import { HiDotsVertical } from "react-icons/hi";
+import MovementMenu from "./movementMenu";
 
-interface MovementFormProps {
+interface MovementBlockProps {
   index: number;
   movement: TrainingBlockMovement;
   movementChange: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
@@ -19,13 +15,13 @@ interface MovementFormProps {
   duplicateMovement: (movement: TrainingBlockMovement) => void;
 }
 
-export default function MovementForm({
+export default function MovementBlock({
   index,
   movement,
   movementChange,
   removeMovement,
   duplicateMovement,
-}: MovementFormProps) {
+}: MovementBlockProps) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   const handleRemoveMovement = () => {
@@ -39,7 +35,7 @@ export default function MovementForm({
   };
 
   return (
-    <div className="mb-8">
+    <div className="border-b border-gray-200 py-6">
       <div className="flex flex-row justify-between">
         <MovementItem movement={movement} />
         <IconButton onClick={() => setMenuOpen(true)}>
@@ -59,7 +55,7 @@ export default function MovementForm({
           inputMode="numeric"
           pattern="\d*"
           name="kg"
-          value={movement.kg}
+          value={movement.kg ?? 0}
           onChange={(e) => movementChange(e, index)}
           className="text-center font-bold outline-none"
           onFocus={(e) => e.target.select()}
@@ -70,7 +66,7 @@ export default function MovementForm({
           inputMode="numeric"
           pattern="\d*"
           name="reps"
-          value={movement.reps}
+          value={movement.reps ?? 0}
           onChange={(e) => movementChange(e, index)}
           className="text-center font-bold outline-none"
           onFocus={(e) => e.target.select()}
@@ -78,35 +74,11 @@ export default function MovementForm({
       </div>
 
       {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-[rgba(0,0,0,0.5)] flex items-end justify-center">
-          <div className="bg-white rounded-t-3xl h-56 w-full flex flex-col gap-4 relative py-4 px-6">
-            <div className="w-full flex flex-row justify-center text-gray-500 mb-4">
-              <span className="text-sm font-semibold">OPTIONS</span>
-              <div className="absolute right-6">
-                <IconButton onClick={() => setMenuOpen(false)}>
-                  <HiX size="18px"/>
-                </IconButton>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-8">
-              <button
-                className="flex flex-row gap-2 items-center cursor-pointer"
-                onClick={handleRemoveMovement}
-              >
-                <HiOutlineTrash size="20px" />
-                <span>Remove movement</span>
-              </button>
-              <button
-                className="flex flex-row gap-2 items-center cursor-pointer"
-                onClick={handleDuplicateMovement}
-              >
-                <HiDuplicate size="20px" />
-                <span>Duplicate movement</span>
-              </button>
-            </div>
-          </div>
-        </div>
+        <MovementMenu
+          close={() => setMenuOpen(false)}
+          handleDuplicateMovement={handleDuplicateMovement}
+          handleRemoveMovement={handleRemoveMovement}
+        />
       )}
     </div>
   );

@@ -1,13 +1,14 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import Select from "@/components/ui/select";
 import InputTime from "@/components/ui/inputTime";
 import PageTitle from "@/components/pageTitle";
 import MovementList from "./components/movementList";
-import MovementForm from "./components/movementForm";
+import RunBlock from "./components/runBlock";
+import MovementBlock from "./components/movementBlock";
 import { HiOutlinePlus } from "react-icons/hi";
 import { Movement } from "@/core/types/Movement";
 import { useRouter } from "next/navigation";
@@ -39,41 +40,57 @@ export default function FormTrainingBlock() {
       kg: 0,
       reps: 1,
       previous: "30kg",
+      distance: null,
     };
 
     setForm({ ...form, movements: [...form.movements, formMovement] });
     setListOpen(false);
   };
 
-  const movementChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-    let updatedMovements = updatedAllSameMoves(e, index);
-    setForm({ ...form, movements: updatedMovements });
+  const addRun = () => {
+    const run: TrainingBlockMovement = {
+      name: "Run",
+      type: "Other",
+      youtubeId: "",
+      kg: null,
+      reps: null,
+      previous: null,
+      distance: 0,
+    };
+
+    setForm({ ...form, movements: [...form.movements, run] });
   };
 
-  const updatedAllSameMoves = (
-    e: ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
+  const movementChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const { name, value } = e.target;
     const numericValue = Number(value);
     const currentMovement = form.movements[index];
-    
+
     if (isNaN(numericValue)) return form.movements;
 
-    if (name === "reps") {
-      return form.movements.map((m, i) =>
-        i === index ? { ...m, reps: numericValue } : m
+    setForm({
+      ...form,
+      movements: updateMoves(currentMovement, index, name, numericValue),
+    });
+  };
+
+  const updateMoves = (
+    currentMovement: Movement,
+    index: number,
+    name: string,
+    value: number
+  ) => {
+    if (name === "kg") {
+      return form.movements.map((m) =>
+        m.youtubeId === currentMovement.youtubeId ? { ...m, kg: value } : m
       );
     }
-
-    return form.movements.map((m) =>
-      m.youtubeId === currentMovement.youtubeId ? { ...m, kg: numericValue } : m
+    return form.movements.map((m, i) =>
+      i === index ? { ...m, [name]: value } : m
     );
   };
 
-  const formChange = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
-  ) => {
+  const formChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     if (isNaN(value)) return;
 
@@ -81,6 +98,21 @@ export default function FormTrainingBlock() {
       ...form,
       [e.target.name]: value,
     });
+  };
+
+  const selectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = Number(e.target.value);
+
+    if (value === TrainingBlockType.Skill) {
+      return setForm({
+        ...form,
+        rounds: 0,
+        time: 0,
+        type: value,
+      });
+    }
+
+    return setForm({ ...form, type: value });
   };
 
   const onSave = () => {
@@ -100,11 +132,6 @@ export default function FormTrainingBlock() {
 
     if (!sameMovement) return;
 
-    sameMovement = {
-      ...sameMovement,
-      reps: Math.max(1, sameMovement.reps - 1),
-    };
-
     setForm({ ...form, movements: [...form.movements, sameMovement] });
   };
 
@@ -119,13 +146,15 @@ export default function FormTrainingBlock() {
         <>
           <div className="flex flex-row justify-between items-center w-full">
             <PageTitle title="Training block" />
-            <Button onClick={onSave}>Save</Button>
+            <Button onClick={onSave} disabled={!form.movements.length}>
+              Save
+            </Button>
           </div>
 
           <div className="flex flex-row gap-2">
             <Select
               value={form.type}
-              onChange={formChange}
+              onChange={selectChange}
               name="type"
               label="Type"
               options={[
@@ -164,6 +193,7 @@ export default function FormTrainingBlock() {
               value={form.rounds}
               onChange={formChange}
               onFocus={(e) => e.target.select()}
+              disabled={form.type === TrainingBlockType.Skill}
             />
 
             <InputTime
@@ -175,26 +205,43 @@ export default function FormTrainingBlock() {
               value={form.time}
               onChange={formChange}
               onFocus={(e) => e.target.select()}
+              disabled={form.type === TrainingBlockType.Skill}
             />
           </div>
 
-          <div>
-            {form.movements.map((m, index) => (
-              <MovementForm
-                key={`${m.youtubeId}-${index}`}
-                index={index}
-                movement={m}
-                movementChange={movementChange}
-                removeMovement={removeMovement}
-                duplicateMovement={duplicateMovement}
-              />
-            ))}
+          <div className="flex flex-col">
+            {form.movements.map((m, index) =>
+              m.name === "Run" ? (
+                <RunBlock
+                  key={`${m.youtubeId}-${index}`}
+                  index={index}
+                  movement={m}
+                  movementChange={movementChange}
+                  removeMovement={removeMovement}
+                />
+              ) : (
+                <MovementBlock
+                  key={`${m.youtubeId}-${index}`}
+                  index={index}
+                  movement={m}
+                  movementChange={movementChange}
+                  removeMovement={removeMovement}
+                  duplicateMovement={duplicateMovement}
+                />
+              )
+            )}
           </div>
 
-          <Button onClick={() => setListOpen(true)}>
-            <HiOutlinePlus />
-            <span className="ml-1">Add movement</span>
-          </Button>
+          <div className="flex flex-row gap-2">
+            <Button onClick={addRun} color="secondary">
+              Add run
+            </Button>
+
+            <Button onClick={() => setListOpen(true)}>
+              <HiOutlinePlus />
+              <span className="ml-1">Add movement</span>
+            </Button>
+          </div>
         </>
       )}
     </div>

@@ -51,13 +51,16 @@ export default function WodPage() {
     <div className="h-screen mx-4 my-6">
       <div className="flex flex-row justify-between items-center w-full">
         <PageTitle title="New workout" />
-        <Button onClick={onSave} disabled={loading}>
+        <Button
+          onClick={onSave}
+          disabled={loading || !wod.trainingBlocks.length}
+        >
           {loading ? <LoadingSpinner /> : "Save"}
         </Button>
       </div>
 
       {error && (
-        <span className="w-full inline-block my-4 px-16 text-base/4 text-center text-secundary font-semibold">
+        <span className="w-full inline-block my-4 px-16 text-base/4 text-center text-secondary font-semibold">
           Failed to save wod, please try again later
         </span>
       )}
@@ -80,7 +83,9 @@ export default function WodPage() {
 
             {t.movements.map((m) => (
               <span className="text-sm text-gray-500">
-                {m.reps} x {m.name}
+                {m.name === "Run"
+                  ? `${m.distance}m run`
+                  : `${m.reps} x ${m.name}`}
               </span>
             ))}
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMonthlyWods } from "@/app/context/MonthlyWodsContext";
+import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { api } from "@/core/services/api";
 import { ErrorResponse } from "@/core/types/ErrorResponse";
 import { Wod } from "@/core/types/Wod";
@@ -12,6 +13,7 @@ export default function Calendar() {
 
   const [dates, setDates] = useState<Date[]>([]);
   const [error, setError] = useState<ErrorResponse | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const { wods, setWods } = useMonthlyWods();
 
   useEffect(() => {
@@ -20,18 +22,22 @@ export default function Calendar() {
 
   const fetchWods = async () => {
     try {
+      setLoading(true);
+      setError(null);
+      
       const response: Wod[] = await api.get(`/wod`, {
         params: { date: actualDate.toISOString() },
       });
       setWods(response);
 
-      renderCalendar(response);
+      renderCalendar();
+      setLoading(false);
     } catch (e: unknown) {
       setError(e as ErrorResponse);
     }
   };
 
-  const renderCalendar = (wods: Wod[]) => {
+  const renderCalendar = () => {
     const monthDates: Date[] = [];
     const currentMonth = actualDate.getUTCMonth();
 
@@ -40,6 +46,7 @@ export default function Calendar() {
       actualDate.getUTCMonth(),
       1
     );
+
     while (currentDate.getUTCMonth() === currentMonth) {
       monthDates.push(new Date(currentDate));
       currentDate.setDate(currentDate.getUTCDate() + 1);
@@ -54,46 +61,50 @@ export default function Calendar() {
   };
 
   return (
-    <div className="flex flex-col border-b border-gray-300 my-6 pb-6">
+    <div className="flex flex-col border-b border-gray-300 my-6 pb-6 items-center">
       <span className="text-center mb-3 font-bold">
         {actualDate.toLocaleDateString("en-US", { month: "long" })}{" "}
         {actualDate.getFullYear()}
       </span>
 
-      <div className="grid grid-cols-7 w-full gap-1 text-center">
-        <span>S</span>
-        <span>M</span>
-        <span>T</span>
-        <span>W</span>
-        <span>T</span>
-        <span>F</span>
-        <span>S</span>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="grid grid-cols-7 w-full gap-1 text-center">
+          <span>S</span>
+          <span>M</span>
+          <span>T</span>
+          <span>W</span>
+          <span>T</span>
+          <span>F</span>
+          <span>S</span>
 
-        {dates.length > 0 && (
-          <>
-            {Array(dates[0].getUTCDay())
-              .fill(null)
-              .map((_, idx) => (
-                <span key={`empty-${idx}`} />
+          {dates.length > 0 && (
+            <>
+              {Array(dates[0].getUTCDay())
+                .fill(null)
+                .map((_, idx) => (
+                  <span key={`empty-${idx}`} />
+                ))}
+
+              {dates.map((date) => (
+                <Link
+                  key={date.toISOString()}
+                  href={`/wodPage?wodDate=${date.toISOString()}`}
+                  className={`h-8 w-8 rounded-full flex items-center justify-center justify-self-center ${
+                    isWodDay(date) ? "bg-primary text-white" : "text-gray-400"
+                  }`}
+                >
+                  <span>{date.getUTCDate()}</span>
+                </Link>
               ))}
-
-            {dates.map((date) => (
-              <Link
-                key={date.toISOString()}
-                href={`/wodPage?wodDate=${date.toISOString()}`}
-                className={`h-8 w-8 rounded-full flex items-center justify-center justify-self-center ${
-                  isWodDay(date) ? "bg-primary text-white" : "text-gray-400"
-                }`}
-              >
-                <span>{date.getUTCDate()}</span>
-              </Link>
-            ))}
-          </>
-        )}
-      </div>
+            </>
+          )}
+        </div>
+      )}
 
       {error && (
-        <span className="w-full my-4 px-16 text-base/4 text-center text-secundary font-semibold">
+        <span className="w-full my-4 px-16 text-base/4 text-center text-secondary font-semibold">
           Failed to get training history, please try again later
         </span>
       )}

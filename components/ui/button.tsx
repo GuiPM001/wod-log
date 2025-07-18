@@ -2,13 +2,13 @@ import React, { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "contained" | "ghost";
-  color?: "confirm" | "cancel";
+  color?: "primary" | "secondary";
 }
 
 export default function Button(props: ButtonProps) {
   const getColors = () => {
-    if (props.color === "cancel")
-      return "text-red-600 bg-red-600 hover:bg-red-600";
+    if (props.color === "secondary")
+      return "text-primary bg-secondary hover:bg-secondary-dark";
 
     return "text-primary bg-primary hover:bg-primary-dark";
   };
