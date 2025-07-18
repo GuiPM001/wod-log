@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Button from "@/components/ui/button";
-import Calendar from "@/app/(public)/(home)/components/calendar";
-import History from "@/app/(public)/(home)/components/history";
+import Calendar from "@/app/(private)/(home)/components/calendar";
+import History from "@/app/(private)/(home)/components/history";
 
 export default function Home() {
   return (

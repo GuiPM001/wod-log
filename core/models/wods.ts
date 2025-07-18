@@ -28,6 +28,7 @@ const TrainingBlockSchema = new Schema(
 );
 
 const Wodschema = new Schema({
+  userId: { type: String, required: true },
   date: { type: String, required: true },
   trainingBlocks: {
     type: [TrainingBlockSchema],

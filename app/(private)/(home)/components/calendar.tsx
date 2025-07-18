@@ -34,6 +34,7 @@ export default function Calendar() {
       setLoading(false);
     } catch (e: unknown) {
       setError(e as ErrorResponse);
+      setLoading(false);
     }
   };
 
