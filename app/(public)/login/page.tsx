@@ -71,10 +71,6 @@ export default function Login() {
           onSubmit={onSubmit}
           className="space-y-10"
         >
-          <Button type="submit" disabled={loading}>
-            {loading ? "Loading..." : "Sign in"}
-          </Button>
-
           <Input
             label="Email"
             placeholder="your@email.com"
@@ -102,6 +98,10 @@ export default function Login() {
                 setForm({ ...form, rememberMe: e.target.checked })
               }
             />
+
+            <Button type="submit" disabled={loading}>
+              {loading ? "Loading..." : "Sign in"}
+            </Button>
           </div>
         </form>
 
