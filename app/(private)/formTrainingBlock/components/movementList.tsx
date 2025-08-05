@@ -3,7 +3,6 @@ import { Movement } from "@/core/types/Movement";
 import { api } from "@/core/services/api";
 import MovementItem from "@/components/movementItem";
 import Input from "@/components/ui/input";
-import Select from "@/components/ui/select";
 import Button from "@/components/ui/button";
 import { ErrorResponse } from "@/core/types/ErrorResponse";
 import { setCachedMovements } from "@/core/cache/movementsCache";
@@ -58,7 +57,7 @@ export default function MovementList({
       addMovement(form);
       
       const updatedMovements = [...movements, form];
-      console.log(updatedMovements)
+      
       setMovements(updatedMovements);
       setCachedMovements(updatedMovements);
 
