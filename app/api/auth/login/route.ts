@@ -31,7 +31,7 @@ const saveCookie = async (
   const maxAge = rememberMe ? 7 * 24 * 60 * 60 : 60 * 60; // 7 days or 1 hour
   cookieStore.set(cookieName, cookieValue, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     path: "/",
     sameSite: "strict",
     maxAge,
