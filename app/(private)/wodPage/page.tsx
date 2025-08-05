@@ -41,6 +41,8 @@ export default function WodPage() {
   };
 
   useEffect(() => {
+    api.get("/movement");
+
     const params = new URLSearchParams(window.location.search);
     const wodDate = params.get("wodDate");
 

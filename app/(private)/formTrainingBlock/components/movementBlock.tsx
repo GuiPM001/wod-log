@@ -43,12 +43,9 @@ export default function MovementBlock({
         </IconButton>
       </div>
 
-      <div className="grid grid-cols-3 text-center text-gray-500 mt-2">
-        <span className="text-xs mb-2">ANTERIOR</span>
+      <div className="grid grid-cols-2 justify-end text-center text-gray-500 mt-2 w-2/3 justify-self-center">
         <span className="text-xs mb-2">KG</span>
         <span className="text-xs mb-2">REPS</span>
-
-        <span>{movement.previous}</span>
 
         <input
           type="text"
