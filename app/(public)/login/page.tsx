@@ -15,7 +15,7 @@ export default function Login() {
   const router = useRouter();
 
   const [loading, setLoading] = useState<boolean>();
-  const [error, setError] = useState<ErrorResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState<LoginRequest>({
     email: "",
     password: "",
@@ -52,7 +52,8 @@ export default function Login() {
 
       router.replace("/");
     } catch (e: unknown) {
-      setError(e as ErrorResponse);
+      const error = e as ErrorResponse;
+      setError(error.message);
       setLoading(false);
     }
   };
@@ -99,7 +100,7 @@ export default function Login() {
           </Button>
         </form>
 
-        {error && <span className="text-red-600 text-sm">{error.message}</span>}
+        {error && <span className="text-red-600 text-sm">{error}</span>}
 
         <p className="text-center text-gray-500 text-sm mt-2">
           Don't have an account?{" "}

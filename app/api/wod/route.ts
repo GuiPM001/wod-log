@@ -33,12 +33,4 @@ export async function GET(request: NextRequest) {
 
 function getUserId(request: NextRequest) {
   return request.headers.get("x-user-id") as string;
-  
-  // if (!userId)
-  //   return NextResponse.json(
-  //     { error: "Usuário não autenticado" },
-  //     { status: 401 }
-  //   );
-
-  // return userId;
 }
