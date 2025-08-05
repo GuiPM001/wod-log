@@ -36,19 +36,20 @@ export default function Login() {
     }
   };
 
-  const setCookie = (name: string, value: string, remember: boolean) => {
-    const maxAge = remember ? 160000000 : "";
-    document.cookie = `${name}=${value}; path=/; max-age=${maxAge}; Secure; SameSite=Strict`;
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    submitLogin();
   };
 
   const submitLogin = async () => {
     try {
       setLoading(true);
+      setError(null);
 
-      const response: LoginResponse = await api.post("/auth/login", form);
-
-      setCookie("authToken", response.token, form.rememberMe);
-      setCookie("userId", response.user._id, form.rememberMe);
+      await api.post("/auth/login", {
+        ...form,
+        email: form.email.toLowerCase(),
+      });
 
       router.replace("/");
     } catch (e: unknown) {
@@ -59,13 +60,21 @@ export default function Login() {
   };
 
   return (
-    <div className="absolute inset-0 w-full h-full px-4 flex items-center justify-center bg-primary">
+    <div className="absolute top-0 w-full h-full px-0 flex items-start justify-center bg-primary">
       <div className="bg-white w-full rounded-xl p-6">
         <span className="text-xl font-black text-primary">WOD LOG</span>
 
         <h1 className="text-2xl font-bold text-center mt-8 mb-4">Sign in</h1>
 
-        <form onKeyDown={handleKeyDown} className="space-y-10">
+        <form
+          onKeyDown={handleKeyDown}
+          onSubmit={onSubmit}
+          className="space-y-10"
+        >
+          <Button type="submit" disabled={loading}>
+            {loading ? "Loading..." : "Sign in"}
+          </Button>
+
           <Input
             label="Email"
             placeholder="your@email.com"
@@ -94,10 +103,6 @@ export default function Login() {
               }
             />
           </div>
-
-          <Button type="button" onClick={submitLogin} disabled={loading}>
-            {loading ? "Loading..." : "Sign in"}
-          </Button>
         </form>
 
         {error && <span className="text-red-600 text-sm">{error}</span>}

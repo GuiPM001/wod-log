@@ -39,7 +39,7 @@ export default function Register() {
       setLoading(true);
 
       if (form.password.length < 8) {
-        setError("Password must be at least 8 characters long." );
+        setError("Password must be at least 8 characters long.");
         return;
       }
 
@@ -48,7 +48,10 @@ export default function Register() {
         return;
       }
 
-      await api.post("/auth/register", form);
+      await api.post("/auth/register", {
+        ...form,
+        email: form.email.toLowerCase(),
+      });
 
       router.replace("/login");
     } catch (e: unknown) {
