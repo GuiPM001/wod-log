@@ -1,6 +1,7 @@
 "use client";
 
 import { useMonthlyWods } from "@/app/context/MonthlyWodsContext";
+import { useWod } from "@/app/context/WodContext";
 import IconButton from "@/components/ui/iconButton";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
@@ -17,10 +18,12 @@ export default function Calendar({ wods }: CalendarProps) {
   const touchStartX = useRef<number | null>(null);
 
   const { monthlyWods, filterMonthlyWods } = useMonthlyWods();
+  const { setInitialState } = useWod();
   
   useEffect(() => {
     renderCalendar();
     filterMonthlyWods(JSON.parse(wods), actualDate);
+    setInitialState();
   }, [actualDate]);
 
   const renderCalendar = () => {

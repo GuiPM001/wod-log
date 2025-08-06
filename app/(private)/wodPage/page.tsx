@@ -32,8 +32,6 @@ export default function WodPage() {
     } catch (e: unknown) {
       setError(e as ErrorResponse);
       setLoading(false);
-    } finally {
-      setInitialState();
     }
   };
 

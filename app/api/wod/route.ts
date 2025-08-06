@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
   try {
     const userId = await getUserId(request);
 
-    const wods = await wodService.getByMonth(userId);
+    const wods = await wodService.getAll(userId);
 
     return NextResponse.json(wods, { status: 201 });
   } catch (error: unknown) {

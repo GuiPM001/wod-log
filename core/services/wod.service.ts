@@ -7,7 +7,7 @@ const saveWod = async (wod: Wod, userId: string) => {
   return await Wods.create({ ...wod, userId });
 };
 
-const getByMonth = async (userId: string) => {
+const getAll = async (userId: string) => {
   await connectMongo();
 
   return await Wods.find({ userId: userId })
@@ -17,5 +17,5 @@ const getByMonth = async (userId: string) => {
 
 export const wodService = {
   saveWod,
-  getByMonth,
+  getAll,
 };

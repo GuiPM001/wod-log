@@ -12,7 +12,7 @@ export default async function Home() {
 
   if (!userId) throw new Error("Unauthenticated user");
 
-  const wods: Wod[] = await wodService.getByMonth(userId);
+  const wods: Wod[] = await wodService.getAll(userId);
 
   return (
     <div className="mx-4 my-6 flex flex-col">
