@@ -29,10 +29,11 @@ export default function WodPage() {
       await api.post("/wod", wod);
 
       router.replace("/");
-      setInitialState();
     } catch (e: unknown) {
       setError(e as ErrorResponse);
       setLoading(false);
+    } finally {
+      setInitialState();
     }
   };
 
