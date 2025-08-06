@@ -6,6 +6,7 @@ import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
 import { ErrorResponse } from "@/core/types/ErrorResponse";
 import { setCachedMovements } from "@/core/cache/movementsCache";
+import { generateRandomString } from "@/core/util/generateRandomString";
 
 interface MovementListProps {
   closeList: () => void;
@@ -21,7 +22,7 @@ export default function MovementList({
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState<Movement>({
     name: "",
-    youtubeId: "",
+    youtubeId: `${generateRandomString(6)}0000`,
     type: "Other",
   });
 
