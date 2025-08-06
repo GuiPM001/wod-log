@@ -60,7 +60,7 @@ export default function Login() {
   };
 
   return (
-    <div className="absolute top-0 w-full h-full px-0 flex items-start justify-center bg-primary">
+    <div className="absolute inset-0 w-full h-full px-4 flex items-center justify-center bg-primary">
       <div className="bg-white w-full rounded-xl p-6">
         <span className="text-xl font-black text-primary">WOD LOG</span>
 
@@ -99,7 +99,7 @@ export default function Login() {
               }
             />
           </div>
-          
+
           <Button type="submit" disabled={loading}>
             {loading ? "Loading..." : "Sign in"}
           </Button>

@@ -7,14 +7,10 @@ const saveWod = async (wod: Wod, userId: string) => {
   return await Wods.create({ ...wod, userId });
 };
 
-const getByMonth = async (date: string, userId: string) => {
+const getByMonth = async (userId: string) => {
   await connectMongo();
 
-  const [year, month] = date.split("T")[0].split("-");
-
-  const regex = new RegExp(`^${year}-${month}`);
-
-  return await Wods.find({ date: { $regex: regex }, userId: userId })
+  return await Wods.find({ userId: userId })
     .sort({ date: -1 })
     .exec();
 };

@@ -12,7 +12,7 @@ export default function IconButton(props: IconButtonProps) {
     >
       <button
         {...props}
-        className="rounded-full transition hover:scale-110 cursor-pointer "
+        className="rounded-full transition hover:scale-110 cursor-pointer"
       >
         {props.children}
       </button>

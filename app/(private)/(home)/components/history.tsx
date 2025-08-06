@@ -5,7 +5,7 @@ import React from "react";
 import WodBlock from "./wodBlock";
 
 export default function History() {
-  const { wods } = useMonthlyWods();
+  const { monthlyWods } = useMonthlyWods();
 
   const formatDate = (date: string) => {
     const [year, month, day] = date.split("T")[0].split("-");
@@ -16,7 +16,7 @@ export default function History() {
     <div className="flex flex-col gap-2">
       <h2>History</h2>
 
-      {wods.map((w, wodIndex) => (
+      {monthlyWods.map((w, wodIndex) => (
         <div
           key={`${w.date}-${wodIndex}`}
           className="min-h-28 w-full p-4 flex flex-col border border-gray-200 rounded-xl gap-2"
