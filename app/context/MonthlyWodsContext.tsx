@@ -6,21 +6,15 @@ import { Wod } from "@/core/types/Wod";
 interface MonthlyWodsContextProps {
   monthlyWods: Wod[];
   filterMonthlyWods: (allWods: Wod[], actualDate: Date) => void;
-  addWod: (wod: Wod) => void;
 }
 
 const MonthlyWodsContext = createContext<MonthlyWodsContextProps>({
   monthlyWods: [],
   filterMonthlyWods: () => {},
-  addWod: () => {},
 });
 
 export const MonthlyWodsProvider = ({ children }: { children: ReactNode }) => {
   const [monthlyWods, setMonthlyWods] = useState<Wod[]>([]);
-
-  const addWod = (newWod: Wod) => {
-    setMonthlyWods([...monthlyWods, newWod]);
-  };
 
   const isInCurrentMonth = (actualDate: Date, dateStr: string): boolean => {
     const date = new Date(dateStr);
@@ -40,9 +34,7 @@ export const MonthlyWodsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <MonthlyWodsContext.Provider
-      value={{ monthlyWods, filterMonthlyWods, addWod }}
-    >
+    <MonthlyWodsContext.Provider value={{ monthlyWods, filterMonthlyWods }}>
       {children}
     </MonthlyWodsContext.Provider>
   );

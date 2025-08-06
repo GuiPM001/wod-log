@@ -5,7 +5,6 @@ import History from "@/app/(private)/(home)/components/history";
 import { Wod } from "@/core/types/Wod";
 import { cookies } from "next/headers";
 import { wodService } from "@/core/services/wod.service";
-import { Suspense } from "react";
 
 export default async function Home() {
   const cookieStore = await cookies();

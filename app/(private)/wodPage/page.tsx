@@ -8,7 +8,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { HiOutlinePlus, HiOutlineTrash } from "react-icons/hi";
 import { useWod } from "@/app/context/WodContext";
-import { useMonthlyWods } from "@/app/context/MonthlyWodsContext";
 import { ErrorResponse } from "@/core/types/ErrorResponse";
 import { trainingBlockLabels } from "@/core/enums/TrainingBlockType";
 import { api } from "@/core/services/api";
@@ -16,7 +15,6 @@ import LoadingSpinner from "@/components/ui/loadingSpinner";
 
 export default function WodPage() {
   const { wod, setWod, setInitialState, removeTrainingBlock } = useWod();
-  const { addWod } = useMonthlyWods();
 
   const router = useRouter();
 
@@ -29,11 +27,9 @@ export default function WodPage() {
       setLoading(true);
 
       await api.post("/wod", wod);
-      addWod(wod);
 
       router.replace("/");
       setInitialState();
-      setLoading(false);
     } catch (e: unknown) {
       setError(e as ErrorResponse);
       setLoading(false);
