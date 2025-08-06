@@ -13,6 +13,7 @@ interface MovementBlockProps {
   movementChange: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
   removeMovement: (index: number) => void;
   duplicateMovement: (movement: TrainingBlockMovement) => void;
+  duplicateMovementDisabled: boolean;
 }
 
 export default function MovementBlock({
@@ -21,6 +22,7 @@ export default function MovementBlock({
   movementChange,
   removeMovement,
   duplicateMovement,
+  duplicateMovementDisabled,
 }: MovementBlockProps) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
@@ -75,6 +77,7 @@ export default function MovementBlock({
           close={() => setMenuOpen(false)}
           handleDuplicateMovement={handleDuplicateMovement}
           handleRemoveMovement={handleRemoveMovement}
+          duplicateMovementDisabled={duplicateMovementDisabled}
         />
       )}
     </div>

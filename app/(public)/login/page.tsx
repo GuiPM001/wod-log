@@ -98,11 +98,11 @@ export default function Login() {
                 setForm({ ...form, rememberMe: e.target.checked })
               }
             />
-
-            <Button type="submit" disabled={loading}>
-              {loading ? "Loading..." : "Sign in"}
-            </Button>
           </div>
+          
+          <Button type="submit" disabled={loading}>
+            {loading ? "Loading..." : "Sign in"}
+          </Button>
         </form>
 
         {error && <span className="text-red-600 text-sm">{error}</span>}

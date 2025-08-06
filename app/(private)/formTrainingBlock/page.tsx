@@ -35,11 +35,15 @@ export default function FormTrainingBlock() {
   const { addTrainingBlock } = useWod();
 
   const addMovement = (newMovement: Movement) => {
+    const sameMovement = form.movements.find(
+      (m) => m.youtubeId === newMovement.youtubeId
+    );
+
     const formMovement: TrainingBlockMovement = {
       ...newMovement,
-      kg: 0,
-      reps: 1,
-      previous: "30kg",
+      kg: sameMovement?.kg ?? 0,
+      reps: sameMovement?.reps ?? 1,
+      previous: "0kg",
       distance: null,
     };
 
@@ -80,14 +84,13 @@ export default function FormTrainingBlock() {
     name: string,
     value: number
   ) => {
-    if (name === "kg") {
-      return form.movements.map((m) =>
-        m.youtubeId === currentMovement.youtubeId ? { ...m, kg: value } : m
-      );
-    }
-    return form.movements.map((m, i) =>
-      i === index ? { ...m, [name]: value } : m
-    );
+    return form.movements.map((movement, i) => {
+      const isSameMovement = movement.youtubeId === currentMovement.youtubeId;
+
+      const shouldUpdate = (name === "kg" && isSameMovement) || (name !== "kg" && i === index);
+
+      return shouldUpdate ? { ...movement, [name]: value } : movement;
+    });
   };
 
   const formChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -201,7 +204,11 @@ export default function FormTrainingBlock() {
               type="text"
               inputMode="numeric"
               pattern="\d*"
-              label="Time per round"
+              label={
+                form.type === TrainingBlockType.ForTime
+                  ? "Total time"
+                  : "Time per round"
+              }
               value={form.time}
               onChange={formChange}
               onFocus={(e) => e.target.select()}
@@ -227,17 +234,34 @@ export default function FormTrainingBlock() {
                   movementChange={movementChange}
                   removeMovement={removeMovement}
                   duplicateMovement={duplicateMovement}
+                  duplicateMovementDisabled={
+                    form.type === TrainingBlockType.Skill &&
+                    form.movements.length > 0
+                  }
                 />
               )
             )}
           </div>
 
           <div className="flex flex-row gap-2">
-            <Button onClick={addRun} color="secondary">
+            <Button
+              onClick={addRun}
+              color="secondary"
+              disabled={
+                form.type === TrainingBlockType.Skill ||
+                form.type === TrainingBlockType.Strength
+              }
+            >
               Add run
             </Button>
 
-            <Button onClick={() => setListOpen(true)}>
+            <Button
+              onClick={() => setListOpen(true)}
+              disabled={
+                form.type === TrainingBlockType.Skill &&
+                form.movements.length > 0
+              }
+            >
               <HiOutlinePlus />
               <span className="ml-1">Add movement</span>
             </Button>

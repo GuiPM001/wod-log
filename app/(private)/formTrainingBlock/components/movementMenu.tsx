@@ -6,12 +6,14 @@ interface MovementMenuProps {
   close: () => void;
   handleDuplicateMovement: () => void;
   handleRemoveMovement: () => void;
+  duplicateMovementDisabled: boolean;
 }
 
 export default function MovementMenu({
   close,
   handleDuplicateMovement,
   handleRemoveMovement,
+  duplicateMovementDisabled,
 }: MovementMenuProps) {
   return (
     <div className="fixed inset-0 z-50 bg-[rgba(0,0,0,0.5)] flex items-end justify-center">
@@ -33,13 +35,15 @@ export default function MovementMenu({
             <HiOutlineTrash size="20px" />
             <span>Remove movement</span>
           </button>
-          <button
-            className="flex flex-row gap-2 items-center cursor-pointer"
-            onClick={handleDuplicateMovement}
-          >
-            <HiDuplicate size="20px" />
-            <span>Duplicate movement</span>
-          </button>
+          {!duplicateMovementDisabled && (
+            <button
+              className="flex flex-row gap-2 items-center cursor-pointer"
+              onClick={handleDuplicateMovement}
+            >
+              <HiDuplicate size="20px" />
+              <span>Duplicate movement</span>
+            </button>
+          )}
         </div>
       </div>
     </div>
